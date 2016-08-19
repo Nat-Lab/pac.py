@@ -3,7 +3,7 @@ pac.py: A simple PAC Generator with nginx-style configuration
 
 usage: `pac.py <configuration>`
 
-There are three keywords: `server`, `rules`, `keywords`, `cidr` and `route` available in configuration.
+There are three keywords: `server`, `rules`, and `route`, and two rules key `keywords` and `cidr` available in configuration.
 
 `server` are use to define a server, usage:
 
@@ -61,6 +61,7 @@ Here is a full example:
 	route google us;
 
 used: whitequark/ipaddr.js (MIT License)
+
 used: fatiherikli/nginxparser (MIT License)
 	
 (C) MagicNAT 2013
