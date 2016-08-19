@@ -629,7 +629,7 @@ function FindProxyForURL(url, host) {
             }
         }
     )
-    if (myVar === undefined) return "DIRECT;";
+    if (proxy === undefined) return "DIRECT;";
     return proxy + "; DIRECT;" || "DIRECT;";
 }
 """)
