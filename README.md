@@ -59,5 +59,8 @@ Here is a full example:
 	route dmm jp;
 	route office office;
 	route google us;
+
+used: whitequark/ipaddr.js (MIT License)
+used: fatiherikli/nginxparser (MIT License)
 	
 (C) MagicNAT 2013
