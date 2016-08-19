@@ -24,8 +24,12 @@ for element in elements:
 				for policy in policy_block:
 					policyType=policy[0]
 					policyValue=policy[1].replace('"', '').replace("'", '')
-					if policyType == "keyword": pItem.append(policyValue)
+					if policyType == "keyword": pItem.append("key:"+policyValue)
 					elif policyType == "cidr": pItem.append("cidr:"+policyValue)
+					elif policyType == "regexp": pItem.append("re:"+policyValue)
+					elif policyType == "url_keyword": pItem.append("ukey:"+policyValue)
+					elif policyType == "url_regexp": pItem.append("ure:"+policyValue)
+					elif policyType == "exact": pItem.append("e:"+policyValue)
 					else: print("Ignored unknow polocy: " + policyType)
 				pGroup.append(pItem)
 				policies.append(pGroup)	
@@ -614,12 +618,29 @@ function FindProxyForURL(url, host) {
             policy_name = policy[0];
             policy[1].forEach(
                 function(host_match) {
-                    if (shExpMatch(host_match, "cidr:*")) {
-                        addr = ipaddr.parse(dnsResolve(host));
-                        cidr = ipaddr.parseCIDR(host_match.split(":")[1])
-                        if (addr.match(cidr)) match = true;
-                    } else {
-                        if (shExpMatch(host, "*" + host_match + "*")) match = true;
+                    policy_type = host_match.split(":")[0];
+                    policy_term = host_match.split(":")[1];
+                    switch (policy_type) {
+                        case "key":
+                            if (shExpMatch(host, "*" + policy_term + "*")) match = true;
+                            break;
+                        case "cidr":
+                            addr = ipaddr.parse(dnsResolve(host));
+                            cidr = ipaddr.parseCIDR(policy_term)
+                            if (addr.match(cidr)) match = true;
+                            break;
+                        case "re":
+                            if (shExpMatch(host, policy_term)) match = true;
+                            break;
+                        case "ukey":
+                            if (shExpMatch(url, "*" + policy_term + "*")) match = true;
+                            break;
+                        case "ure":
+                            if (shExpMatch(url, policy_term)) match = true;
+                            break;
+                        case "e":
+                            if (shExpMatch(host, policy_term)) match = true;
+                            break;
                     }
                 }
             )
@@ -632,4 +653,5 @@ function FindProxyForURL(url, host) {
     if (proxy === undefined) return "DIRECT;";
     return proxy + "; DIRECT;" || "DIRECT;";
 }
+
 """)
