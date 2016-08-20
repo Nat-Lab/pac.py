@@ -35,6 +35,7 @@ for element in elements:
 					elif policyType == "url_keyword": pItem.append("ukey:"+policyValue)
 					elif policyType == "url_regexp": pItem.append("ure:"+policyValue)
 					elif policyType == "exact": pItem.append("e:"+policyValue)
+					elif policyType == "local_cidr": pItem.append("lcidr:"+policyValue)
 					else: print("Ignored unknow polocy: " + policyType)
 				if elementType == "rules": 
 					pGroup.append(pItem)

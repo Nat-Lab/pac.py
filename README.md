@@ -3,7 +3,7 @@ pac.py: A simple PAC Generator with nginx-style configuration
 
 usage: `pac.py <configuration>`
 
-There are four keywords: `server`, `rules`, `bypass`, and `route`, and two rules key `keywords`, `cidr`, `regexp`, `url_keyword`, `url_regexp` and `exact` available in configuration.
+There are four keywords: `server`, `rules`, `bypass`, and `route`, and seven rules keys `keywords`, `cidr`, `local_cidr`,`regexp`, `url_keyword`, `url_regexp` and `exact` available in configuration.
 
 `server` are use to define a server, usage:
 
@@ -18,14 +18,14 @@ There are four keywords: `server`, `rules`, `bypass`, and `route`, and two rules
 Here is some example of rules: 
 
 	rules google {
-		keyword "google";
+		keyword "google"; # Matching domain contains 'google'.
 		keyword "youtube";
 		keyword "gstatic";
 	}
 
 	rules office {
 		keyword "*.myofflice.local";
-		cidr "10.0.1.0/24";
+		cidr "10.0.1.0/24"; # Matching hosts in this CIDR.
 	}
 	
 	rules action {
@@ -34,11 +34,12 @@ Here is some example of rules:
 		url_regexp "*action.php?*&check=IP*";
 	}
 	
-`bypass` are similar to `rules`, it is also a block containing rules. If any the rules there are being matched, then no proxy will be used, see example:
+`bypass` are similar to `rules`, it is also a block containing rules. If any the rules there are matched, then no proxy will be used, see example:
 
 	bypass {
 		cidr "192.168.0.0/24";
 		cidr "172.0.0.0/16";
+		local_cidr "10.0.0.0/8"; # Match if *user* (yes, you.) in this CIDR. 
 	}
 
 `route` are use to assign a rules set to a server, usage:
