@@ -9,7 +9,7 @@ There are four keywords: `server`, `rules`, `bypass`, and `route`, and seven rul
 
 	server <server_name> <server_type> <host>:<port>;
 	
-`rules` are use to define a rules set, `keywords`, `cidr`, `regexp`, `url_keyword`, `url_regexp` and `exact` are use in the context of `rules`, usage:
+`rules` are use to define a rules set, rules keys are used in context of `rules`, usage:
 
 	rules <rules_name> {
 		... rules ...
