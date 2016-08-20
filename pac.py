@@ -97,6 +97,11 @@ function checkPolicy(policy, url, host) {
             if (shExpMatch(url, policy_term)) return true;
         case "e":
             if (shExpMatch(host, policy_term)) return true;
+        case "lcidr":
+            subnet = policy_term.split("/")[0];
+            cidr = policy_term.split("/")[1];
+            netmask = getNetmask(cidr);
+            if (isInNet(myIpAddress(), subnet, netmask)) return true;
     }
 }
 
