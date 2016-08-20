@@ -75,9 +75,6 @@ Here is a full example:
 	route google us;
 	route ipchecker cn;
 
-
-used: whitequark/ipaddr.js (MIT License)
-
 used: fatiherikli/nginxparser (MIT License)
 	
 (C) MagicNAT 2013
