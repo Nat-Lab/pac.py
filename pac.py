@@ -8,7 +8,6 @@ depolicies = list()
 
 try:
 	elements=load(open(sys.argv[1]))
-	print(elements)
 except:
 	print("usage: " + sys.argv[0] + " <configuration>")
 	exit(1)
