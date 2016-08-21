@@ -87,20 +87,20 @@ function checkPolicy(policy, url, host) {
             subnet = policy_term.split("/")[0];
             cidr = policy_term.split("/")[1];
             netmask = getNetmask(cidr);
-            if (isInNet(host, subnet, netmask)) return true;
+            return isInNet(host, subnet, netmask);
         case "re":
-            if (shExpMatch(host, policy_term)) return true;
+            return shExpMatch(host, policy_term);
         case "ukey":
-            if (shExpMatch(url, "*" + policy_term + "*")) return true;
+            return shExpMatch(url, "*" + policy_term + "*");
         case "ure":
-            if (shExpMatch(url, policy_term)) return true;
+            return shExpMatch(url, policy_term);
         case "e":
-            if (shExpMatch(host, policy_term)) return true;
+            return shExpMatch(host, policy_term);
         case "lcidr":
             subnet = policy_term.split("/")[0];
             cidr = policy_term.split("/")[1];
             netmask = getNetmask(cidr);
-            if (isInNet(myIpAddress(), subnet, netmask)) return true;
+            return isInNet(myIpAddress(), subnet, netmask);
     }
 }
 
